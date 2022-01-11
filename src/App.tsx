@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{useReducer,useMemo} from "react";
+import "./App.css";
+import HomePage from "./Pages/home-page/HomePage";
+import { GistReducer, initialState, WeatherContext } from './context/WeatherContext'
+import WeatherDisp from "./Components/weatherDisp/WeatherDisp";
 
-function App() {
+const App: React.FC = () => {
+  const [state, dispatch] = useReducer(GistReducer, initialState);
+  const { tab } = state
+
+  const displayScreenTabs = useMemo(() => {
+    switch (tab) {
+      case 1:
+        return <WeatherDisp />
+      default:
+        return null
+    }
+  }, [tab]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <WeatherContext.Provider value={{ state, dispatch }}>
+      <HomePage />
+      {displayScreenTabs}
+    </WeatherContext.Provider>
   );
-}
+};
 
 export default App;
