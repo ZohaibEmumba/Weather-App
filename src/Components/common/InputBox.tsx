@@ -10,7 +10,7 @@ const { Search } = Input
 
 const InputBox: React.FC = () => {
   const { dispatch } = useContext(WeatherContext)
-  const [dropDown, setdropDown] = useState("")
+  const [dropDown, setdropDown] = useState<string>("")
   let lat :number 
   let lon :number
 
@@ -18,7 +18,13 @@ const InputBox: React.FC = () => {
 
     if (dropDown === DROPDOWN.CITYNAME ) {
       const resp = await weatherByName(searchText)
-      console.log(resp)
+      dispatch({
+        type: VISIBLESCREEN,
+        payload: {
+          tab:1,
+          data : resp
+        },
+      });
     }
     else if(dropDown === DROPDOWN.CITYID){
       const resp = await getWeatherByCityID(searchText)
@@ -30,6 +36,7 @@ const InputBox: React.FC = () => {
     }
   };
   const handleChange = (value:string) => {
+    console.log(value);
     setdropDown(value)
   }
   const selectBefore = (
@@ -41,8 +48,6 @@ const InputBox: React.FC = () => {
   );
 
   return (
-    <Row>
-      <Col span={24} pull={24}>
         <InputContainer>
           <Search
             addonBefore={selectBefore}
@@ -51,8 +56,6 @@ const InputBox: React.FC = () => {
             enterButton
           />
         </InputContainer>
-      </Col>
-    </Row>
   );
 };
 

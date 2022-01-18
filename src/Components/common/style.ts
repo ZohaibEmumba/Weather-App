@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const InputContainer = styled.div` 
-  width: 200%;
-  padding: 50px 0px;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 50%;
+  padding: 50px;
 `
