@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div` 
+
     background-color: #3b3b61;
     display: grid;
     grid-template-columns: auto;
